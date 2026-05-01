@@ -48,4 +48,12 @@ let interpret s =
     | _ -> run (i+1)
   in
   run 0;
-  print_newline ()
+  print_newline ();;
+
+let main () = 
+  let ic = open_in "source.bf" in
+  let s = In_channel.input_all ic in 
+  print_endline "Program output:";
+  interpret s;;
+
+main ()
