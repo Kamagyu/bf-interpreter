@@ -36,7 +36,12 @@ let interpret s =
     | '>' -> incr ptr; run (i+1)
     | '<' -> decr ptr; run (i+1)
     | '.' -> print_char (Char.chr tape.(!ptr)); run (i+1)
-    | ',' -> (); run (i+1)
+    | ',' -> (
+      print_endline "The program is requesting a character input.";
+      match In_channel.input_char In_channel.stdin with 
+      | None -> run (i+1)
+      | Some c -> tape.(!ptr) <- Char.code c
+      ); run (i+1)
     | '[' -> (
       if tape.(!ptr) = 0 then run (skip_forward s i)
       else run (i+1)
